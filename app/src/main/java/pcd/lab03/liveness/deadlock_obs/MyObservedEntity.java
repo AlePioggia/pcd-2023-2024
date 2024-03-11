@@ -3,6 +3,8 @@ package pcd.lab03.liveness.deadlock_obs;
 import java.util.ArrayList;
 import java.util.List;
 
+/**Voglio che la mia classe sia thread safe.*/
+
 public class MyObservedEntity implements Observed {
 
 	private List<Observer> obsList;
