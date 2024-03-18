@@ -11,11 +11,16 @@ public class MyWorkerA extends Worker {
 		this.mutex = mutex;
 	}
 	
+	//since acquire can be interrupted, exceptions are needed
+
 	public void run(){
 		while (true){
 		  action1();	
 		  try {
-			  mutex.acquire();
+			  mutex.acquire(); //await equivalent
+			  //Check, once you get inside critical section, value needs to be 1
+			  //c.inc()
+			  //assert c.getValue() == 1
 			  action2();	
 			  action3();	
 		  } catch (InterruptedException ex) {
