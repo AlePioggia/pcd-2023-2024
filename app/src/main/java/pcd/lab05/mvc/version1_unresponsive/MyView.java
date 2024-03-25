@@ -49,6 +49,7 @@ class MyView extends JFrame implements ActionListener, ModelObserver {
 		});
 	}
 	
+	/**Quando la view genera un evento, la delego al controller */
 	public void actionPerformed(ActionEvent ev) {
 		try {
 			controller.processEvent(ev.getActionCommand());

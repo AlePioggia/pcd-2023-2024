@@ -8,6 +8,10 @@ public class MyController {
 		this.model = model;
 	}
 
+	/**Metto la computazione nel controller, c'è una buona separazione mvc, però
+	 * il codice diventa non responsivo, perché il controller è comunque gestito dallo stesso 
+	 * unico thread.
+	 */
 	public void processEvent(String event) {
 		try {
 			System.out.println("[Controller] Processing the event " + event + " ...");

@@ -17,7 +17,7 @@ public class BoundedBuffer1<Item> implements IBoundedBuffer<Item> {
 			wait();
 		}
 		buffer.addLast(item);
-		notifyAll();
+		notifyAll(); // devo svegliare tutti, che devono controllare
 	}
 
 	public synchronized Item get() throws InterruptedException {

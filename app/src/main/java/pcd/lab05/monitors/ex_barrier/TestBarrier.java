@@ -14,7 +14,7 @@ public class TestBarrier {
 		
 		List<Worker> workers = new ArrayList<Worker>();
 		for (int i = 0; i < nWorkers; i++) {
-			workers.add(new Worker("Worker-"+i, barrier));
+			workers.add(new Worker("Worker-" + i, barrier));
 		}
 
 		for (Worker w: workers) {

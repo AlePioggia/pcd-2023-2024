@@ -14,7 +14,7 @@ public class Worker extends Thread {
 	public void run() {
 		Random gen = new Random(System.nanoTime());
 		try {
-			waitFor(gen.nextInt(3000));
+			waitFor(gen.nextInt(3000)); //faccio del lavoro
 			log("before");
 			barrier.hitAndWaitAll();
 			log("after");

@@ -78,6 +78,7 @@ public class CounterGUI extends JFrame
 	}
 	
 	public void counterChanged(final CounterEvent ev){
+		/** Delego un compito di modifica all'eventDispatcherThread*/
 		SwingUtilities.invokeLater(()-> {
 			display.setText(""+ ev.getValue());
 		});

@@ -60,6 +60,9 @@ class MyView extends JFrame implements ActionListener, ModelObserver {
 		}
 	}
 
+	/** Qui il flusso di controllo è del model, di conseguenza è meglio chiamare invokeandWait
+	 * il punto critico è appunto model.getState()
+	 */
 	@Override
 	public void modelUpdated(MyModel model) {
 		try {

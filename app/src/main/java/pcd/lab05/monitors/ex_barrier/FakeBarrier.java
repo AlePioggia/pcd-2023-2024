@@ -1,15 +1,16 @@
 package pcd.lab05.monitors.ex_barrier;
 
-/*
- * Barrier - to be implemented
- */
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
 public class FakeBarrier implements Barrier {
 	
-	public FakeBarrier(int nParticipants) {	}
+	public FakeBarrier(int nParticipants) {	
+	}
 	
 	@Override
-	public void hitAndWaitAll() throws InterruptedException {	
+	public synchronized void hitAndWaitAll() throws InterruptedException {	
 	}
-
 	
 }

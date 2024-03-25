@@ -12,7 +12,7 @@ public class CounterAgent extends Thread {
 		this.delta = delta;
 	}
 	public void run(){
-		stopFlag.reset();
+		stopFlag.reset(); //monitor che controlla se il flag è stato settato a true o meno
 		while (!stopFlag.isSet()){
 			counter.inc();
 			System.out.println(counter.getValue());

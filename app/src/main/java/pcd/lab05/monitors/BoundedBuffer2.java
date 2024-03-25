@@ -7,14 +7,15 @@ public class BoundedBuffer2<Item> implements IBoundedBuffer<Item> {
 
 	private LinkedList<Item> buffer;
 	private int maxSize;
-	private Lock mutex;
+	private Lock mutex; //factory per creare conditionVariables
 	private Condition notEmpty, notFull;
 
 	public BoundedBuffer2(int size) {
 		buffer = new LinkedList<Item>();
 		maxSize = size;
 		mutex = new ReentrantLock();
-		notEmpty = mutex.newCondition();
+		//conditionVariables create così perché quando fa l'await deve sbloccare il lock genitore
+		notEmpty = mutex.newCondition(); 
 		notFull = mutex.newCondition();
 	}
 

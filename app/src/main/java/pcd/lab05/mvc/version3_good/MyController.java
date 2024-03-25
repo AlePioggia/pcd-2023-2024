@@ -7,6 +7,11 @@ public class MyController {
 	public MyController(MyModel model){
 		this.model = model;
 	}
+
+	/** 
+	 * Per il controller sfrutto dunque un altro thread, in modo da non far fare altre 
+	 * operazioni all'eventDispatcherThread ma ad un thread dedicato.
+	 */
 	public void processEvent(String event) {
 		try {
 			new Thread(() -> {
