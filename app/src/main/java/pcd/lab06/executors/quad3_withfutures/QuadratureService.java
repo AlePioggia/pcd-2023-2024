@@ -4,6 +4,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.*;
 
+/**
+ * Metodo della quadratura: semplifico l'integrale sommando i vari trapezi. Il calcolo si presta all'architettura
+ * a task, in quanto i compiti sono completamente indipendenti fra loro.
+ */
 public class QuadratureService extends Thread {
 
 	private int numTasks;
@@ -19,6 +23,9 @@ public class QuadratureService extends Thread {
 		double x0 = a;
 		double step = (b-a)/numTasks;		
 	    List<Future<Double>> results = new LinkedList<Future<Double>>();
+		/**
+		 * Con le future posso tranquillamente utilizzare una struttura dati per gestire i risultati
+		 */
 		for (int i = 0; i < numTasks; i++) {
 			try {
 				Future<Double> res = executor.submit(new ComputeAreaTask(x0, x0 + step, mf));
@@ -33,11 +40,12 @@ public class QuadratureService extends Thread {
 	    double sum = 0;
 	    for (Future<Double> res: results) {
 	    	try {
-	    		sum += res.get();
+	    		sum += res.get(); //chiamata bloccante
 	    	} catch (Exception ex){
 	    		ex.printStackTrace();
 	    	}
 	    }
+
 	    System.out.printf("The result is %s\n", sum);
 		return sum;
 	}

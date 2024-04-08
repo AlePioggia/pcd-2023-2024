@@ -6,7 +6,7 @@ public class Main {
 
 		double a = 0;
 		double b = 3;		
-		int nTasks = 1000;
+		int nTasks = 1000; // in quanti intervallini devo fare il calcolo
 		int poolSize = 5;
 		
 		QuadratureService service = new QuadratureService(nTasks, poolSize);

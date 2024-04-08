@@ -2,6 +2,9 @@ package pcd.lab06.executors.quad1_basic;
 
 import java.util.concurrent.*;
 
+/**
+ * Ogni calcolo dell'area è un quadratino
+ */
 public class QuadratureService {
 
 	private int numTasks;
@@ -15,6 +18,10 @@ public class QuadratureService {
 	
 	public double compute(IFunction mf, double a, double b) throws InterruptedException { 
 		executor = Executors.newFixedThreadPool(poolSize);
+		/*Ogni risultato lo aggrego qui, nel quadrature result, che è protetto (implementazione attraverso un monitor) 
+		 * le feature mi consentono di evitare l'uso di monitor.
+		 * 
+		*/
 		QuadratureResult result = new QuadratureResult();		
 		double x0 = a;
 		double step = (b-a)/numTasks;		
