@@ -21,6 +21,12 @@ public class MatMulConcurLib {
 	private MatMulConcurLib() {
 	}
 	
+	/**
+	 * Mi focalizzo sui task che possono essere eseguiti in modo concorrente,
+	 * la suddivisione dei task nei vari thread è responsabilità dell'executor
+	 * Secondo il prof è meglio usare la classe, piuttosto che la lambda, per
+	 * specificare meglio a livello di progettazione, il task.
+	 */
 	public Mat matmul(Mat matA, Mat matB) throws MatMulException {
 		Mat matC = new Mat(matA.getNRows(), matB.getNColumns());
 		exec = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() + 1);		
@@ -28,17 +34,6 @@ public class MatMulConcurLib {
 			for (int i = 0; i < matA.getNRows(); i++){
 				for (int j = 0; j < matB.getNColumns(); j++){
 					exec.execute(new ComputeElemTask(i,j,matA,matB,matC));
-					
-					// Alternative: using a lambda expression to specify the task
-					/* 					
-					exec.execute(() -> {
-						double sum = 0;
-						for (int k = 0; k < matA.getNColumns(); k++){
-							sum += matA.get(i, k)*matB.get(k, j);
-						}
-						matC.set(i,j,sum);
-					});
-					*/
 				}
 			}
 			exec.shutdown();
