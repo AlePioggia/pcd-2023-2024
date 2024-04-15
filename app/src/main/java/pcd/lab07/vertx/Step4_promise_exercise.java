@@ -4,6 +4,13 @@ import io.vertx.core.*;
 
 
 /**
+ * Vogliamo implementare un metodo asincrono protetto, in cui si vuole restituire un valore randomico tra 0 ed 1 dopo il tempo
+ * delay specificato. 
+ * Voglio progettare un metodo asincrono che mi consenta di ritornare la future. Per farlo serve usare l'api che ci dà le
+ * promise.
+ */
+
+/**
  * Exercise
  * 
  * -- implement an async protected method getDelayedRandom(int delay)
@@ -14,11 +21,24 @@ import io.vertx.core.*;
  * 
  */
 class VerticleWithPromise extends AbstractVerticle {
-	
+
 	public void start() {
 		log("started.");
+
+		var f = getDelayedRandom(1000);
+		f.onSuccess(res -> {
+			log("result: " + res);
+		});
 	
 	}
+
+	protected Future<Double> getDelayedRandom(int delay) {
+		Promise<Double> p = Promise.promise(); //creo la promise, oggetto thread safe pronto per essere configurato
+		getVertx().setTimer(delay, (id) -> {
+			p.complete(); // completo manualmente la promise
+		});
+		return p.future(); // restituendo questo, dò una interfaccia di read(), non modificabile
+	} 
 
 	private void log(String msg) {
 		System.out.println("[REACTIVE AGENT]["+Thread.currentThread()+"]" + msg);
