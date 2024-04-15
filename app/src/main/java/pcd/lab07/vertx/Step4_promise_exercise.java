@@ -32,6 +32,7 @@ class VerticleWithPromise extends AbstractVerticle {
 	
 	}
 
+	//alternativa alla execute blocking
 	protected Future<Double> getDelayedRandom(int delay) {
 		Promise<Double> p = Promise.promise(); //creo la promise, oggetto thread safe pronto per essere configurato
 		getVertx().setTimer(delay, (id) -> {
