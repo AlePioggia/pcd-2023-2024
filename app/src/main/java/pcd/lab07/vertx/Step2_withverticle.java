@@ -6,6 +6,13 @@ import io.vertx.core.Vertx;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.file.FileSystem;
 
+/**
+ * Wrappiamo tutte le computazioni in un verticle. Dentro quel blocco (verticle block), abbiamo tutte le garanzie del caso sull'esecuzione. 
+ * Qui legge concorrentemente il contenuto di due file, quindi uno può finire prima dell'altro.
+ * Eseguire roba dentro il blocco verticle mi consente di evitare che ci siano corse critiche, perché lui 
+ * internamente gestisce questi aspetti. 
+ */
+
 class MyReactiveAgent extends AbstractVerticle {
 	
 	public void start() {
@@ -13,16 +20,16 @@ class MyReactiveAgent extends AbstractVerticle {
 		
 		FileSystem fs = getVertx().fileSystem();    		
 		
-		Future<Buffer> f1 = fs.readFile("build.gradle.kts");
+		Future<Buffer> f1 = fs.readFile("app/build.gradle.kts");
 
 		f1.onComplete((AsyncResult<Buffer> res) -> {
 			log("4 - BUILD \n" + res.result().toString().substring(0,160));
 		});
 	
-		log("2 - doing the seconf async call...");
+		log("2 - doing the second async call...");
 
 		fs
-		.readFile("../settings.gradle.kts")
+		.readFile("settings.gradle.kts")
 		.onComplete((AsyncResult<Buffer> res) -> {
 			log("4 - SETTINGS \n" + res.result().toString().substring(0,160));
 		});
